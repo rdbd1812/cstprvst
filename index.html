@@ -71,21 +71,63 @@
             width: 100%;
         }
 
-        #photoGallery, #videoGallery {
+        #photoGallery {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin-top: 20px;
         }
 
-        #photoGallery img, #videoGallery iframe {
+        #photoGallery img {
+            width: 200px;
+            height: 150px;
+            border: 2px solid white;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #photoGallery div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Styles pour la fenêtre modale */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+        }
+
+        .modal .close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            font-size: 2em;
+            cursor: pointer;
+        }
+
+        #videoGallery iframe {
             width: 200px;
             height: 150px;
             border: 2px solid white;
             border-radius: 10px;
         }
 
-        #photoGallery div, #videoGallery div {
+        #videoGallery div {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -109,14 +151,13 @@
         <section id="photo" class="tab-content">
             <h2>Galerie de Photos</h2>
             <div id="photoGallery">
-                <!-- Ajoute tes URLs ici pour afficher les images -->
                 <div>
-                    <img src="https://via.placeholder.com/200" alt="Exemple de photo 1">
+                    <img src="https://via.placeholder.com/200" alt="Exemple de photo 1" onclick="openModal(this.src)">
                 </div>
                 <div>
-                    <img src="https://via.placeholder.com/200" alt="Exemple de photo 2">
+                    <img src="https://via.placeholder.com/200" alt="Exemple de photo 2" onclick="openModal(this.src)">
                 </div>
-                <!-- Ajoute d'autres images ci-dessus -->
+                <!-- Ajoute d'autres images ici -->
             </div>
         </section>
 
@@ -124,14 +165,13 @@
         <section id="video" class="tab-content">
             <h2>Galerie de Vidéos</h2>
             <div id="videoGallery">
-                <!-- Ajoute tes URLs ici pour afficher les vidéos -->
                 <div>
                     <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
                 </div>
                 <div>
                     <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" frameborder="0" allowfullscreen></iframe>
                 </div>
-                <!-- Ajoute d'autres vidéos ci-dessus -->
+                <!-- Ajoute d'autres vidéos ici -->
             </div>
         </section>
 
@@ -146,6 +186,12 @@
         <p>Par Castille Provost.</p>
     </footer>
 
+    <!-- Fenêtre modale -->
+    <div class="modal" id="imageModal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" src="" alt="Image agrandie">
+    </div>
+
     <script>
         window.onload = function() {
             showTab('photo'); // Affiche l'onglet Photo par défaut
@@ -155,6 +201,17 @@
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
+        }
+
+        // Ouvrir la modale avec l'image
+        function openModal(src) {
+            document.getElementById('modalImage').src = src;
+            document.getElementById('imageModal').style.display = 'flex';
+        }
+
+        // Fermer la modale
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
         }
     </script>
 </body>
