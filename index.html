@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio de Castille Provost</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenue dans mon portfolio !</h1>
+        <nav>
+            <ul>
+                <li><a href="#photo" onclick="showTab('photo')">Photo</a></li>
+                <li><a href="#video" onclick="showTab('video')">Vidéo</a></li>
+                <li><a href="#contact" onclick="showTab('contact')">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="photo" class="tab-content">
+            <h2>Ajouter une photo</h2>
+            <input type="text" id="photoUrl" placeholder="Entrez l'URL de la photo">
+            <button onclick="addPhoto()">Ajouter</button>
+            <div id="photoGallery"></div>
+        </section>
+
+        <section id="video" class="tab-content hidden">
+            <h2>Ajouter une vidéo</h2>
+            <input type="text" id="videoUrl" placeholder="Entrez l'URL de la vidéo (YouTube, Vimeo...)">
+            <button onclick="addVideo()">Ajouter</button>
+            <div id="videoGallery"></div>
+        </section>
+
+        <section id="contact" class="tab-content hidden">
+            <h2>Contact</h2>
+            <p>Pour toute question, veuillez me contacter à : <strong>castille.provost@example.com</strong></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Par Castille Provost.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
