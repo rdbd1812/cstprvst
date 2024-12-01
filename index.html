@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio de Castille Provost</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         body {
             font-family: 'Courier New', sans-serif;
@@ -76,6 +75,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            margin-top: 20px;
         }
 
         #photoGallery img, #videoGallery iframe {
@@ -84,6 +84,26 @@
             border: 2px solid white;
             border-radius: 10px;
         }
+
+        #photoGallery div, #videoGallery div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        button {
+            background-color: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff7b9c;
+        }
     </style>
 </head>
 <body>
@@ -91,9 +111,9 @@
         <h1>Bienvenue dans mon portfolio !</h1>
         <nav>
             <ul>
-                <li><a href="#photo" onclick="showTab('photo')">Photo</a></li>
-                <li><a href="#video" onclick="showTab('video')">Vidéo</a></li>
-                <li><a href="#contact" onclick="showTab('contact')">Contact</a></li>
+                <li><a href="#" onclick="showTab('photo')">Photo</a></li>
+                <li><a href="#" onclick="showTab('video')">Vidéo</a></li>
+                <li><a href="#" onclick="showTab('contact')">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -106,14 +126,14 @@
             <div id="photoGallery"></div>
         </section>
 
-        <section id="video" class="tab-content hidden">
+        <section id="video" class="tab-content">
             <h2>Ajouter une vidéo</h2>
             <input type="text" id="videoUrl" placeholder="Entrez l'URL de la vidéo (YouTube, Vimeo...)">
             <button onclick="addVideo()">Ajouter</button>
             <div id="videoGallery"></div>
         </section>
 
-        <section id="contact" class="tab-content hidden">
+        <section id="contact" class="tab-content">
             <h2>Contact</h2>
             <p>Pour toute question, veuillez me contacter à : <strong>castille.provost@example.com</strong></p>
         </section>
@@ -124,10 +144,10 @@
     </footer>
 
     <script>
-        // Charger les photos et vidéos enregistrées lors du chargement de la page
         window.onload = function() {
             loadPhotos();
             loadVideos();
+            showTab('photo'); // Affiche l'onglet Photo par défaut
         };
 
         function showTab(tabId) {
