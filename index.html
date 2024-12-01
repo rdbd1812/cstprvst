@@ -5,6 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio de Castille Provost</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Courier New', sans-serif;
+            background-color: #ffe4e6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffb6c1;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: white;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: left;
+        }
+
+        nav li {
+            margin-right: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #333;
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #ffb6c1;
+            color: white;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #ffb6c1;
+            color: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #photoGallery, #videoGallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #photoGallery img, #videoGallery iframe {
+            width: 200px;
+            height: 150px;
+            border: 2px solid white;
+            border-radius: 10px;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -43,6 +123,80 @@
         <p>Par Castille Provost.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Charger les photos et vidéos enregistrées lors du chargement de la page
+        window.onload = function() {
+            loadPhotos();
+            loadVideos();
+        };
+
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        function addPhoto() {
+            const url = document.getElementById('photoUrl').value;
+            if (url) {
+                const photos = JSON.parse(localStorage.getItem('photos')) || [];
+                photos.push(url);
+                localStorage.setItem('photos', JSON.stringify(photos));
+                displayPhoto(url);
+                document.getElementById('photoUrl').value = '';
+            }
+        }
+
+        function displayPhoto(url) {
+            const photoGallery = document.getElementById('photoGallery');
+            const imgElement = document.createElement('div');
+            imgElement.innerHTML = `<img src="${url}" alt="Photo">
+                                    <button onclick="removePhoto('${url}', this)">Supprimer</button>`;
+            photoGallery.appendChild(imgElement);
+        }
+
+        function removePhoto(url, button) {
+            const photos = JSON.parse(localStorage.getItem('photos')) || [];
+            const updatedPhotos = photos.filter(photo => photo !== url);
+            localStorage.setItem('photos', JSON.stringify(updatedPhotos));
+            button.parentNode.remove();
+        }
+
+        function loadPhotos() {
+            const photos = JSON.parse(localStorage.getItem('photos')) || [];
+            photos.forEach(photo => displayPhoto(photo));
+        }
+
+        function addVideo() {
+            const url = document.getElementById('videoUrl').value;
+            if (url) {
+                const videos = JSON.parse(localStorage.getItem('videos')) || [];
+                videos.push(url);
+                localStorage.setItem('videos', JSON.stringify(videos));
+                displayVideo(url);
+                document.getElementById('videoUrl').value = '';
+            }
+        }
+
+        function displayVideo(url) {
+            const videoGallery = document.getElementById('videoGallery');
+            const iframeElement = document.createElement('div');
+            iframeElement.innerHTML = `<iframe src="${url}" frameborder="0" allowfullscreen></iframe>
+                                       <button onclick="removeVideo('${url}', this)">Supprimer</button>`;
+            videoGallery.appendChild(iframeElement);
+        }
+
+        function removeVideo(url, button) {
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            const updatedVideos = videos.filter(video => video !== url);
+            localStorage.setItem('videos', JSON.stringify(updatedVideos));
+            button.parentNode.remove();
+        }
+
+        function loadVideos() {
+            const videos = JSON.parse(localStorage.getItem('videos')) || [];
+            videos.forEach(video => displayVideo(video));
+        }
+    </script>
 </body>
 </html>
